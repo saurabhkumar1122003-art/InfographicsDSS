@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>You scanned this because it felt like a good deal</title>
+<meta name="viewport" content="width=1080, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: oklch(0.97 0.005 80);
+    --paper-2: oklch(0.94 0.008 80);
+    --ink: oklch(0.16 0.01 60);
+    --ink-soft: oklch(0.36 0.01 60);
+    --rule: oklch(0.84 0.008 80);
+    --red: oklch(0.58 0.21 27);
+    --red-deep: oklch(0.48 0.22 27);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #2a2a2a; }
+  body {
+    font-family: "Inter Tight", system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 1080px;
+    margin: 24px auto;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  }
+
+  /* === paper grain === */
+  .page::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.025), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02), transparent 40%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .page > * { position: relative; z-index: 2; }
+
+  /* === reusable === */
+  .display { font-family: "Anton", "Inter Tight", sans-serif; font-weight: 400; letter-spacing: -0.01em; line-height: 0.92; text-transform: uppercase; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  .red { color: var(--red); }
+  .strike { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: var(--red); }
+
+  /* === sale sticker motif === */
+  .sticker {
+    aspect-ratio: 1 / 1;
+    background: var(--red);
+    color: white;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    font-family: "Anton", sans-serif;
+    text-transform: uppercase;
+    line-height: 0.95;
+    box-shadow: 0 8px 22px -8px rgba(180,30,30,0.5);
+  }
+  .sticker.outline {
+    background: transparent;
+    color: var(--red);
+    border: 3px solid var(--red);
+    box-shadow: none;
+  }
+
+  /* ===== MASTHEAD ===== */
+  .masthead {
+    padding: 60px 72px 36px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .eyebrow .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+  .masthead h1 {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 108px;
+    line-height: 0.9;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+    margin: 22px 0 0;
+    text-wrap: balance;
+  }
+  .masthead h1 .you { color: var(--red); }
+  .masthead .sub {
+    margin-top: 26px;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 780px;
+    font-weight: 500;
+  }
+  .masthead .meta {
+    margin-top: 36px;
+    display: flex; gap: 28px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+  .masthead .meta span b { color: var(--ink); font-weight: 600; }
+
+  /* ===== HERO: the bait ===== */
+  .hero {
+    padding: 56px 72px 64px;
+    background: var(--paper-2);
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+  .hero-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .hero-stage {
+    position: relative;
+    height: 620px;
+    background: white;
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  /* product placeholder (3 cans abstract) */
+  .cans {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 14px;
+    padding: 60px 0 80px;
+  }
+  .can {
+    width: 150px; height: 460px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.18), transparent 18%),
+      repeating-linear-gradient(90deg,
+        oklch(0.92 0.005 80) 0 6px,
+        oklch(0.88 0.005 80) 6px 12px);
+    border-radius: 18px 18px 10px 10px;
+    position: relative;
+    box-shadow:
+      inset 6px 0 18px rgba(0,0,0,0.12),
+      inset -6px 0 18px rgba(0,0,0,0.12),
+      0 30px 40px -20px rgba(0,0,0,0.25);
+  }
+  .can::before {
+    content: "PRODUCT SHOT";
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .can::after {
+    content: "";
+    position: absolute;
+    top: -6px; left: 12px; right: 12px;
+    height: 14px;
+    background: linear-gradient(180deg, oklch(0.78 0.005 80), oklch(0.92 0.005 80));
+    border-radius: 8px 8px 4px 4px;
+  }
+  .can.tall { height: 500px; }
+
+  .hero-sticker-1 {
+    position: absolute;
+    top: -22px; left: -22px;
+    width: 200px;
+    font-size: 78px;
+    transform: rotate(-8deg);
+    flex-direction: column;
+  }
+  .hero-sticker-1 small { font-family: "Inter Tight", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; margin-top: 4px; }
+
+  .hero-sticker-2 {
+    position: absolute;
+    right: -18px; bottom: 200px;
+    width: 170px;
+    font-size: 28px;
+    transform: rotate(10deg);
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hero-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 28px 36px 32px;
+    text-align: center;
+    background: white;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-caption .deal {
+    font-family: "Anton", sans-serif;
+    font-size: 84px;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+  .hero-caption .deal .row1 { color: var(--ink); }
+  .hero-caption .deal .row2 { color: var(--red); }
+  .hero-caption .deal-sub {
+    margin-top: 10px;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .hero-annotation {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .annotation {
+    border-left: 3px solid var(--red);
+    padding: 4px 0 4px 18px;
+  }
+  .annotation .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .annotation .v {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* ===== SECTION SHELL ===== */
+  section.numbered {
+    padding: 72px 72px 64px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .sec-head {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 36px;
+  }
+  .sec-num {
+    font-family: "Anton", sans-serif;
+    font-size: 140px;
+    line-height: 0.8;
+    color: var(--red);
+  }
+  .sec-title {
+    font-family: "Anton", sans-serif;
+    font-size: 62px;
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .sec-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    padding-bottom: 6px;
+    line-height: 1.5;
+  }
+  .sec-rule {
+    height: 1px; background: var(--rule);
+    margin-bottom: 32px;
+  }
+
+  /* think vs reality */
+  .duel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+  }
+  .duel > div {
+    padding: 28px 30px 30px;
+  }
+  .duel .left {
+    background: var(--paper);
+    border-right: 1px solid var(--ink);
+  }
+  .duel .right {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .duel h4 {
+    margin: 0 0 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    font-weight: 600;
+  }
+  .duel .quote {
+    font-family: "Anton", sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .duel ul {
+    margin: 0; padding: 0; list-style: none;
+  }
+  .duel ul li {
+    font-size: 17px;
+    line-height: 1.4;
+    padding: 10px 0;
+    border-top: 1px dashed currentColor;
+    opacity: 0.92;
+  }
+  .duel ul li:first-child { border-top: 0; }
+  .duel .right ul li { color: var(--paper); }
+
+  .trigger-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    margin-top: 28px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 22px 26px;
+  }
+  .trigger-bar .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .trigger-bar .v {
+    font-family: "Anton", sans-serif;
+    font-size: 28px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .trigger-bar .desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    max-width: 420px;
+  }
+  .trigger-bar .badge {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  .result-grid {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .result {
+    padding: 18px 22px;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 16px;
+    background: white;
+  }
+  .result .mark {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex: 0 0 36px;
+  }
+  .result.up .mark { background: oklch(0.94 0.05 145); color: oklch(0.42 0.13 145); }
+  .result.dn .mark { background: oklch(0.94 0.05 27); color: var(--red); }
+  .result .txt { font-size: 16px; font-weight: 600; line-height: 1.3; }
+
+  /* SECTION 2 specifics */
+  .clock-stage {
+    position: relative;
+    padding: 28px 0 0;
+  }
+  .clock-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .clock-vis {
+    aspect-ratio: 1;
+    background: var(--paper-2);
+    border: 1px solid var(--ink);
+    position: relative;
+    padding: 30px;
+  }
+  .clock-vis::before, .clock-vis::after {
+    content: "";
+    position: absolute;
+    background: var(--ink);
+  }
+  .clock-circle {
+    position: absolute; inset: 30px;
+    border: 4px solid var(--ink);
+    border-radius: 50%;
+    background:
+      conic-gradient(var(--red) 0 280deg, transparent 280deg 360deg);
+    -webkit-mask: radial-gradient(circle, transparent 35%, black 36%);
+    mask: radial-gradient(circle, transparent 35%, black 36%);
+  }
+  .clock-label {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .clock-label .big {
+    font-family: "Anton", sans-serif;
+    font-size: 110px;
+    line-height: 0.85;
+    color: var(--ink);
+  }
+  .clock-label .small {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .clock-tick {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 40%;
+    background: var(--red);
+    transform-origin: top center;
+    transform: translate(-50%, 0) rotate(195deg);
+  }
+  .urgency {
+    font-family: "Anton", sans-serif;
+    font-size: 44px;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .urgency .lined { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 4px; text-underline-offset: 6px;}
+  .reaction-list {
+    margin-top: 22px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .reaction {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .reaction .icon {
+    width: 28px; height: 28px;
+    background: var(--red);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Anton", sans-serif;
+    font-size: 18px;
+  }
+  .reaction:last-child { border-bottom: 0; }
+
+  /* SECTION 3: gratification */
+  .delivery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+  }
+  .delivery > div {
+    padding: 30px 26px;
+    border-right: 1px solid var(--ink);
+  }
+  .delivery > div:last-child { border-right: 0; }
+  .delivery .step .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .delivery .step .val {
+    font-family: "Anton", sans-serif;
+    font-size: 46px;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .delivery .step .desc {
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .delivery .removed { background: var(--ink); color: var(--paper); }
+  .delivery .removed .lbl { color: oklch(0.7 0.01 60); }
+
+  .bias {
+    margin-top: 26px;
+    padding: 28px 30px;
+    background: var(--red);
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 30px;
+  }
+  .bias h5 {
+    margin: 0 0 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .bias .name {
+    font-family: "Anton", sans-serif;
+    font-size: 40px;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .bias .name + p { margin: 10px 0 0; font-size: 16px; opacity: 0.92; line-height: 1.4; max-width: 540px; }
+  .bias .arrow {
+    font-family: "Anton", sans-serif;
+    font-size: 100px;
+    line-height: 0.8;
+    opacity: 0.6;
+  }
+
+  /* SECTION 4: flow */
+  .flow {
+    display: flex; flex-direction: column;
+    gap: 14px;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 90px 1fr 180px;
+    gap: 24px;
+    align-items: center;
+    padding: 22px 28px;
+    background: white;
+    border: 1px solid var(--ink);
+  }
+  .flow-step .n {
+    font-family: "Anton", sans-serif;
+    font-size: 64px;
+    line-height: 0.85;
+    color: var(--red);
+  }
+  .flow-step .label {
+    font-family: "Anton", sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .flow-step .body {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flow-step .tag {
+    text-align: right;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .flow-arrow {
+    display: flex; align-items: center; justify-content: center;
+    height: 24px;
+    color: var(--ink);
+    font-family: "Anton", sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.5em;
+  }
+  .flow-step.final {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .flow-step.final .n { color: var(--red); }
+  .flow-step.final .body { color: oklch(0.78 0.01 60); }
+  .flow-step.final .tag { color: oklch(0.7 0.01 60); }
+
+  /* SECTION 5: question */
+  .question {
+    text-align: center;
+    padding: 40px 40px 30px;
+    position: relative;
+  }
+  .question h2 {
+    font-family: "Anton", sans-serif;
+    font-size: 92px;
+    line-height: 0.9;
+    margin: 0;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .question h2 em {
+    font-style: normal;
+    color: var(--red);
+  }
+  .question .or {
+    display: inline-block;
+    margin: 20px 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.5em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 10px 32px;
+  }
+  .marketing-list {
+    margin: 30px 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+  }
+  .marketing-list li {
+    list-style: none;
+    padding: 22px 28px;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    display: flex; align-items: center; gap: 16px;
+    text-align: left;
+  }
+  .marketing-list li:nth-child(2n) { border-right: 0; }
+  .marketing-list li:nth-last-child(-n+2) { border-bottom: 0; }
+  .marketing-list li .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--red);
+    font-weight: 600;
+  }
+  .marketing-list li .t {
+    font-family: "Anton", sans-serif;
+    font-size: 26px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* SECTION 6: final */
+  .final {
+    padding: 80px 72px 90px;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before {
+    content: "";
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, oklch(0.58 0.21 27 / 0.18), transparent 70%);
+    top: -200px; right: -200px;
+    pointer-events: none;
+  }
+  .final-quote {
+    font-family: "Anton", sans-serif;
+    font-size: 96px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    text-wrap: balance;
+    margin: 0;
+    position: relative;
+  }
+  .final-quote em {
+    font-style: normal;
+    color: var(--red);
+  }
+  .final-quote .mark { color: var(--red); font-size: 1.2em; line-height: 0; vertical-align: -0.1em; }
+
+  .checklist {
+    margin: 50px auto 0;
+    max-width: 780px;
+    text-align: left;
+  }
+  .checklist h4 {
+    margin: 0 0 18px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: oklch(0.78 0.01 60);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .checklist li {
+    list-style: none;
+    padding: 18px 0;
+    border-top: 1px solid oklch(0.32 0.01 60);
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 18px;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .checklist li:last-child { border-bottom: 1px solid oklch(0.32 0.01 60); }
+  .checklist .box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--paper);
+  }
+
+  .credo {
+    margin-top: 50px;
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: "Anton", sans-serif;
+    font-size: 56px;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+  .credo span:nth-child(2) { color: var(--red); }
+
+  /* footer */
+  .colophon {
+    padding: 28px 72px;
+    background: var(--paper);
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .colophon .right { text-align: right; }
+  .colophon .center { text-align: center; }
+
+</style>
+</head>
+<body style="font-family: Arial">
+<article class="page">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      <span>Field Notes / Consumer Psychology</span>
+      <span style="margin-left:auto;">№ 01 — Buy 2 Get 1 Free</span>
+    </div>
+    <h1>
+      You scanned this<br/>
+      because it <span class="you">felt</span><br/>
+      like a good deal.
+    </h1>
+    <p class="sub">A close reading of a single advertisement — and the three small tricks it plays on your brain in the four seconds before your thumb moves to the checkout button.</p>
+    <div class="meta">
+      <span><b>Subject</b> &nbsp; Convenience-app banner</span>
+      <span><b>Format</b> &nbsp; 1080 × scroll</span>
+      <span><b>Read</b> &nbsp; 4 minutes</span>
+      <span style="margin-left:auto;"><b>Filed under</b> &nbsp; Impulse / Scarcity / Dopamine</span>
+    </div>
+  </header>
+
+  <!-- ============ HERO: the ad itself ============ -->
+  <div class="hero">
+    <div class="hero-label">Exhibit A &nbsp; · &nbsp; The advertisement, annotated</div>
+    <div class="hero-stage">
+      <div class="cans">
+        <div class="can"></div>
+        <div class="can tall"></div>
+        <div class="can"></div>
+      </div>
+      <div class="sticker hero-sticker-1">
+        <span>80/-</span>
+        <small>NEW PRICE</small>
+      </div>
+      <div class="sticker hero-sticker-2">
+        <span>SUNDAY</span>
+        <span>SPECIAL</span>
+      </div>
+
+      <div class="hero-caption">
+        <div class="deal">
+          <div class="row1">BUY 2</div>
+          <div class="row2">GET 1 FREE</div>
+        </div>
+        <div class="deal-sub">Delivered to your doorstep under <b style="color:var(--ink)">8 min.</b></div>
+      </div>
+    </div>
+
+    <div class="hero-annotation">
+      <div class="annotation">
+        <div class="k">Trick 01 — The Sticker</div>
+        <div class="v">A red disc shouts the price you weren't going to ask about.</div>
+      </div>
+      <div class="annotation">
+        <div class="k">Trick 02 — The Calendar</div>
+        <div class="v">"Sunday" turns an ordinary shelf item into a deadline.</div>
+      </div>
+      <div class="annotation">
+        <div class="k">Trick 03 — The Free</div>
+        <div class="v">Your eye lands on FREE before it lands on BUY 2.</div>
+      </div>
+      <div class="annotation">
+        <div class="k">Trick 04 — The Clock</div>
+        <div class="v">Eight minutes is shorter than the time it takes to reconsider.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 01 — THE HOOK ============ -->
+  <section class="numbered">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <div class="sec-title">The Hook</div>
+      </div>
+      <div class="sec-tag">Mechanism<br/>Reward System</div>
+    </div>
+    <div class="sec-rule"></div>
+
+    <div class="duel">
+      <div class="left">
+        <h4>What your brain thinks</h4>
+        <div class="quote">"I'm saving<br/>money."</div>
+        <p style="margin:0;color:var(--ink-soft);font-size:16px;line-height:1.4;">A pleasant, mathematical certainty. You've spotted an edge.</p>
+      </div>
+      <div class="right">
+        <h4>What is actually happening</h4>
+        <ul>
+          <li>The word "FREE" pulls focus to the gift — not the spend.</li>
+          <li>You never asked: <em style="font-style:normal;color:white;font-weight:700;">do I even need this?</em></li>
+          <li>You never asked: <em style="font-style:normal;color:white;font-weight:700;">was I planning to buy this?</em></li>
+          <li>You never asked: <em style="font-style:normal;color:white;font-weight:700;">am I spending more than I should?</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="trigger-bar">
+      <div>
+        <div class="k">Psychological trigger</div>
+        <div class="v">Reward System Activation</div>
+      </div>
+      <div class="desc">Your brain releases a small hit of dopamine because it feels like you're <b>winning</b> the transaction — not paying for it.</div>
+      <div class="badge">Dopamine ↑<br/>Logic ↓</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result up">
+        <div class="mark">↑</div>
+        <div class="txt">Increased excitement &amp; anticipation</div>
+      </div>
+      <div class="result dn">
+        <div class="mark">↓</div>
+        <div class="txt">Reduced logical evaluation of need</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 02 — FOMO ============ -->
+  <section class="numbered">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <div class="sec-title">Fear of<br/>Missing Out</div>
+      </div>
+      <div class="sec-tag">Mechanism<br/>Scarcity Principle</div>
+    </div>
+    <div class="sec-rule"></div>
+
+    <div class="clock-stage">
+      <div class="clock-row">
+        <div class="clock-vis">
+          <div class="clock-circle"></div>
+          <div class="clock-tick"></div>
+          <div class="clock-label">
+            <div class="big">SUN</div>
+            <div class="small">offer expires tonight</div>
+          </div>
+        </div>
+        <div>
+          <div class="urgency">A limited window<br/>tells your brain<br/><span class="lined">decide now,</span><br/>or lose it forever.</div>
+          <div class="reaction-list">
+            <div class="reaction"><span class="icon">!</span> <span>Panic buying replaces planning</span></div>
+            <div class="reaction"><span class="icon">♥</span> <span>Emotional decision-making takes over</span></div>
+            <div class="reaction"><span class="icon">?</span> <span>Fear of regret outweighs cost</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trigger-bar" style="margin-top:32px;">
+      <div>
+        <div class="k">Psychological trigger</div>
+        <div class="v">Scarcity Principle</div>
+      </div>
+      <div class="desc">Humans value things more when they appear limited or temporary. The clock matters more than the price.</div>
+      <div class="badge">Urgency ↑<br/>Reflection ↓</div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 03 — INSTANT GRATIFICATION ============ -->
+  <section class="numbered">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <div class="sec-title">Instant<br/>Gratification</div>
+      </div>
+      <div class="sec-tag">Mechanism<br/>Instant Reward Bias</div>
+    </div>
+    <div class="sec-rule"></div>
+
+    <p style="font-family:'Anton',sans-serif;font-size:54px;line-height:0.95;text-transform:uppercase;margin:0 0 30px;text-wrap:balance;">"Delivered in under <span class="red">8&nbsp;minutes.</span>"<br/><span style="font-size:24px;color:var(--ink-soft);font-family:'Inter Tight',sans-serif;text-transform:none;font-weight:600;letter-spacing:0;">— which is to say, before you can change your mind.</span></p>
+
+    <div class="delivery">
+      <div class="step removed">
+        <div class="lbl">Removed → 01</div>
+        <div class="val">Waiting<br/>Time</div>
+        <div class="desc">The pause that used to give you a chance to forget you wanted it.</div>
+      </div>
+      <div class="step removed">
+        <div class="lbl">Removed → 02</div>
+        <div class="val">Effort</div>
+        <div class="desc">No walking. No queue. No friction at all between thought and purchase.</div>
+      </div>
+      <div class="step removed">
+        <div class="lbl">Removed → 03</div>
+        <div class="val">Reconsider<br/>Time</div>
+        <div class="desc">The 20-minute drive home where you'd realize you didn't actually need it.</div>
+      </div>
+    </div>
+
+    <div class="bias">
+      <div>
+        <h5>Psychological trigger</h5>
+        <div class="name">Instant Reward Bias</div>
+        <p>The brain disproportionately prefers immediate pleasure over long-term savings. A drink in eight minutes feels more real than a hundred rupees next month.</p>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result dn">
+        <div class="mark">↓</div>
+        <div class="txt">Less self-control across the session</div>
+      </div>
+      <div class="result dn">
+        <div class="mark">↑</div>
+        <div class="txt">More impulsive, unplanned spending</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 04 — THE FLOW ============ -->
+  <section class="numbered">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <div class="sec-title">How the brain<br/>gets manipulated</div>
+      </div>
+      <div class="sec-tag">Step-by-step<br/>~ 4 seconds total</div>
+    </div>
+    <div class="sec-rule"></div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="n">01</div>
+        <div>
+          <div class="label">Attractive offer appears</div>
+          <div class="body">"Buy 2 Get 1 Free" lands in your peripheral vision before your conscious eye catches it.</div>
+        </div>
+        <div class="tag">t = 0.0s<br/>Visual cortex</div>
+      </div>
+      <div class="flow-arrow">↓ ↓ ↓</div>
+      <div class="flow-step">
+        <div class="n">02</div>
+        <div>
+          <div class="label">Dopamine rushes in</div>
+          <div class="body">Anticipation of reward, not the reward itself. Your brain rewards you for noticing the deal.</div>
+        </div>
+        <div class="tag">t = 0.4s<br/>Nucleus accumbens</div>
+      </div>
+      <div class="flow-arrow">↓ ↓ ↓</div>
+      <div class="flow-step">
+        <div class="n">03</div>
+        <div>
+          <div class="label">Urgency is created</div>
+          <div class="body">"Sunday Special" attaches a deadline to something that didn't have one ten seconds ago.</div>
+        </div>
+        <div class="tag">t = 1.0s<br/>Limbic system</div>
+      </div>
+      <div class="flow-arrow">↓ ↓ ↓</div>
+      <div class="flow-step">
+        <div class="n">04</div>
+        <div>
+          <div class="label">Convenience is added</div>
+          <div class="body">"Delivered in 8 min" closes every escape route. There is nothing left to wait for.</div>
+        </div>
+        <div class="tag">t = 1.6s<br/>Striatum</div>
+      </div>
+      <div class="flow-arrow">↓ ↓ ↓</div>
+      <div class="flow-step">
+        <div class="n">05</div>
+        <div>
+          <div class="label">Logical thinking decreases</div>
+          <div class="body">The prefrontal cortex — the part that does math and asks "do I need this?" — quiets down.</div>
+        </div>
+        <div class="tag">t = 2.4s<br/>Prefrontal cortex ↓</div>
+      </div>
+      <div class="flow-arrow">↓ ↓ ↓</div>
+      <div class="flow-step final">
+        <div class="n">06</div>
+        <div>
+          <div class="label">Impulse purchase</div>
+          <div class="body">You buy something you never planned to buy. The whole sequence took less than four seconds.</div>
+        </div>
+        <div class="tag">t = 3.8s<br/>Thumb → Pay</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 05 — THE QUESTION ============ -->
+  <section class="numbered">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <div class="sec-title">The Real<br/>Question</div>
+      </div>
+      <div class="sec-tag">For you<br/>to answer</div>
+    </div>
+    <div class="sec-rule"></div>
+
+    <div class="question">
+      <h2>Did you actually want<br/>the product…<br/><span class="or">— OR —</span><br/>did the ad <em>create<br/>the desire?</em></h2>
+    </div>
+
+    <p style="margin:24px 0 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);">Modern marketing is designed to —</p>
+    <ul class="marketing-list">
+      <li>
+        <span class="num">01</span>
+        <span class="t">Capture<br/>attention</span>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <span class="t">Create<br/>urgency</span>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <span class="t">Trigger<br/>emotions</span>
+      </li>
+      <li>
+        <span class="num">04</span>
+        <span class="t">Encourage<br/>impulse</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ SECTION 06 — FINAL ============ -->
+  <section class="final">
+    <p class="final-quote">
+      <span class="mark">"</span>Not every desire<br/>is <em>truly yours.</em><span class="mark">"</span>
+    </p>
+
+    <div class="checklist">
+      <h4>Before you tap "Buy" — ask yourself</h4>
+      <ul style="margin:0;padding:0;">
+        <li><span class="box"></span><span>Do I actually need this?</span></li>
+        <li><span class="box"></span><span>Would I buy it without the offer?</span></li>
+        <li><span class="box"></span><span>Am I buying because of pressure, or because of emotion?</span></li>
+        <li><span class="box"></span><span>Will I remember this purchase tomorrow?</span></li>
+      </ul>
+    </div>
+
+    <div class="credo">
+      <span>Control your impulses.</span>
+      <span>Think before you spend.</span>
+      <span>Save your money wisely.</span>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div>Field Notes № 01</div>
+    <div class="center">Consumer Psychology / Long-form</div>
+    <div class="right">End of document</div>
+  </footer>
+
+</article>
+</body>
+</html>
